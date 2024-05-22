@@ -21,13 +21,14 @@ const App = () => {
 		event.preventDefault();
 
 		const noteObject = {
-			id: notes.length + 1,
 			content: newNote,
 			important: Math.random() > 0.5,
 		};
 
-		setNotes(notes.concat(noteObject));
-		setNewNote("");
+		axios.post("http://localhost:3001/notes", noteObject).then((response) => {
+			setNotes(notes.concat(response.data));
+			setNewNote("");
+		});
 	};
 
 	const notesToShow = showAll ? notes : notes.filter((note) => note.important);
