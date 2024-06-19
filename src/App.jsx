@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import Note from "./components/Note";
 import Notification from "./components/Notification";
+import Togglable from "./components/Togglable";
 import LoginForm from "./components/LoginForm";
+import NoteForm from "./components/NoteForm";
 import Footer from "./components/Footer";
 import noteService from "./services/notes";
 import loginService from "./services/login";
@@ -75,11 +77,12 @@ const App = () => {
 		event.preventDefault();
 
 		try {
-			const user = await loginService.login({ username, password });
-
+			const user = await loginService.login({
+				username,
+				password,
+			});
 			window.localStorage.setItem("loggedNoteappUser", JSON.stringify(user));
 			noteService.setToken(user.token);
-
 			setUser(user);
 			setUsername("");
 			setPassword("");
@@ -114,17 +117,6 @@ const App = () => {
 		);
 	};
 
-	const noteForm = () => (
-		<form onSubmit={addNote}>
-			<input
-				value={newNote}
-				onChange={handleNoteChange}
-			/>
-
-			<button type="submit">save</button>
-		</form>
-	);
-
 	const handleLogout = () => {
 		window.localStorage.removeItem("loggedNoteappUser");
 		setUser(null);
@@ -136,15 +128,20 @@ const App = () => {
 
 			<Notification message={errorMessage} />
 
-			{user === null ? (
-				loginForm()
-			) : (
+			{!user && loginForm()}
+			{user && (
 				<div>
 					<div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
 						<p>{user.name} logged-in</p>{" "}
 						<button onClick={handleLogout}>logout</button>
 					</div>
-					{noteForm()}
+					<Togglable buttonLabel="new note">
+						<NoteForm
+							onSubmit={addNote}
+							value={newNote}
+							handleChange={handleNoteChange}
+						/>
+					</Togglable>
 				</div>
 			)}
 
