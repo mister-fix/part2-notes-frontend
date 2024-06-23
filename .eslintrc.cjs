@@ -12,6 +12,15 @@ module.exports = {
 	settings: { react: { version: "18.2" } },
 	plugins: ["react-refresh"],
 	rules: {
+		indent: ["error", 2],
+		"linebreak-style": ["error", "unix"],
+		quotes: ["error", "single"],
+		semi: ["error", "never"],
+		eqeqeq: "error",
+		"no-trailing-spaces": "error",
+		"object-curly-spacing": ["error", "always"],
+		"arrow-spacing": ["error", { before: true, after: true }],
+		"no-console": 0,
 		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
 		"react/jsx-no-target-blank": "off",
 		"react-refresh/only-export-components": [
@@ -19,6 +28,7 @@ module.exports = {
 			{ allowConstantExport: true },
 		],
 		"react/prop-types": "off",
-		"react/no-unused-vars": "0",
+		"react/no-unused-vars": 0,
+		"no-unused-vars": 0,
 	},
 };
