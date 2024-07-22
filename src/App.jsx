@@ -105,7 +105,7 @@ const App = () => {
       {user && (
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <p>{user.name} logged-in</p>{' '}
+            <p>{user.name} logged in</p>{' '}
             <button onClick={handleLogout}>logout</button>
           </div>
           <Togglable
