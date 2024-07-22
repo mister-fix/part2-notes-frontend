@@ -9,12 +9,16 @@ const LoginForm = ({ loginUser }) => {
   const handleLogin = async (event) => {
     event.preventDefault()
 
-    const user = await loginService.login({
-      username,
-      password,
-    })
+    try {
+      const user = await loginService.login({
+        username,
+        password,
+      })
 
-    loginUser(user)
+      loginUser(user)
+    } catch (error) {
+      loginUser(null, error.message)
+    }
   }
 
   return (
